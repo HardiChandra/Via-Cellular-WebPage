@@ -1,0 +1,630 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
+<script language="javascript">
+	var statusPonsel;
+	function cek()
+	{
+		if(cekName()==true) //memanggil fungsi cekName() dan mengecek apakah cekName() mengembalikan true
+		{
+			if(cekAddress()==true) //memanggil fungsi cekAddress() dan mengecek apakah cekAddress() mengembalikan true
+			{
+				if(cekContactNumber()==true) //memanggil fungsi cekContactNumber() dan mengecek apakah cekContactNumber() mengembalikan true
+				{
+					if(cekEmail()==true) //memanggil fungsi cekEmail() dan mengecek apakah cekEmail() mengembalikan true
+					{
+						if(cekCardType()==true) //memanggil fungsi cekCardType() dan mengecek apakah cekCardType() mengembalikan true
+						{
+							if(cekCardNumber()==true) //memanggil fungsi cekCardNumber() dan mengecek apakah cekCardNumber() mengembalikan true
+							{
+								if(cekCardHolderName()==true) //memanggil fungsi cekCardHolderName() dan mengecek apakah cekCardHolderName() mengembalikan true
+								{
+									if(cekExpirationDate()==true) //memanggil fungsi cekExpirationDate() dan mengecek apakah cekExpirationDate() mengembalikan true
+									{
+										if(cekBeli()==true) //memanggil fungsi cekBeli() dan mengecek apakah cekBeli() mengembalikan true
+										{
+											alert("success");
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	function cekBeli() //Fungsi cekBeli untuk memastikan salah satu dari Ponsel atau accessory harus dibeli
+	{
+		if(form1.cmbTypePonsel.value=="--Select One--"&&form1.cmbTypeAccessory.value=="--Select One--")
+		{
+			alert("You Must buy something!!");		
+			return false;
+		}
+		return true;
+	}
+	function cekExpirationDate() //Menguji apakah bulan dan tahun telah dipilih dari expiration date
+	{
+		if(form1.cmbMonthExpirationDate.value=="--Month--")
+		{
+			alert("Month of expiration date must be chosen!!");
+			form1.cmbMonthExpirationDate.focus();
+			return false;
+		}
+		else if(form1.cmbYearExpirationDate.value=="--Year--")
+		{
+			alert("Year of expiration date must be chosen!!");
+			form1.cmbYearExpirationDate.focus();
+			return false;
+		}
+		return true;
+	}
+	function cekCardHolderName() //untuk mengecek CardHolder textfield harus diisi dan harus diisi number
+	{	
+		CardHolderName2=form1.txtCardHolderName.value;
+		if(form1.txtCardHolderName.value=="") 
+		{
+			alert("Card holder name must be filled!!");
+			form1.txtCardHolderName.select();
+			form1.txtCardHolderName.focus();
+			return false;
+		}
+		for(i=0;i<CardHolderName2.length;i++)
+		{
+			if(isNaN(CardHolderName2.charAt(i))==false)
+			{
+				alert("Card holder may not be filled with number!!");
+				form1.txtCardHolderName.select();
+				form1.txtCardHolderName.focus();
+				return false;
+			}
+		}
+		return true;
+	}
+	function cekCardNumber()
+	{
+		
+		//buat cek txtCardNumber kosong apa ngak
+		if(form1.txtCardNumber.value=="")
+		{
+			alert("Card number must be filled!!");
+			form1.txtCardNumber.focus();
+			return false;
+		}
+		//buat cek card number hanya boleh berupa angka
+		else if(isNaN(form1.txtCardNumber.value)==true)
+		{
+			alert("Card number must be contain with numbers only!!");
+			form1.txtCardNumber.select();
+			form1.txtCardNumber.focus();
+			return false;
+		}
+		//buat cek panjang card number harus 16
+		else if(form1.txtCardNumber.value.length!=16)
+		{
+			alert("Card number must contains of 16 numbers");
+			form1.txtCardNumber.select();
+			form1.txtCardNumber.focus();
+			return false;
+		}
+		return true;
+	}
+	function cekCardType() //mengecek cardType harus dipilih
+	{
+		if(form1.cmbCardType.value=="--Select One--")
+		{
+			alert("Card type must be chosen!!");
+			form1.cmbCardType.focus();
+			return false;
+		}
+		return true;
+	}
+	function cekEmail() //mengecek email
+	{
+		email2=form1.txtEmail.value;
+		status=0;
+		status2=0;
+
+		//validasi email kosong
+		if (email2 == "")
+		{
+			alert("Email address must be filled!!");
+			form1.txtEmail.select();
+			form1.txtEmail.focus();
+			return false;
+		}
+		else
+		{
+			//validasi harus mengandung @ dan .
+			for(i=0;i<email2.length;i++)
+			{
+				if(email2.charAt(i)=='@')
+				{
+					status=1;
+				}
+				if(email2.charAt(i)=='.')
+				{
+					status2=1;
+				}
+			}
+			if(status!=1||status2!=1)
+			{
+				alert("Email address must contain '@'(at) and '.'(dot) character");
+				form1.txtEmail.select();
+				form1.txtEmail.focus();
+				status=0;
+				status2=0;
+				return false;
+			}
+			
+			//validasi karakter @ dan . tidak boleh menjadi karakter pertama maupun terakhir dari alamat email
+			if(email2.charAt(0)=='@'||email2.charAt(0)=='.'||email2.charAt(email2.length-1)=='@'||email2.charAt(email2.length-1)=='.')
+			{
+				alert("Email address may not begin with or end with '@'(at) or '.'(dot) character!!");
+				form1.txtEmail.select();
+				form1.txtEmail.focus();
+				return false;
+			}
+			
+			//validasi karakter . tidak boleh bersebelahan dengan karakter @
+			for(i=0;i<email2.length;i++)
+			{
+				if(email2.charAt(i)=='@')
+				{
+					if(email2.charAt(i+1)=='.')
+					{
+						alert("Email address may not have '.'(dot) character after the '@'(at) character!!");
+						form1.txtEmail.select();
+						form1.txtEmail.focus();
+						return false;
+					}
+				}
+			}
+			
+			//validasi email tidak boleh mengandung karakter . sebelum karakter @
+			for(i=0;i<email2.length;i++)
+			{
+				if(email2.charAt(i)=='.')
+				{
+					i2=i+1;
+					for(j=i2;j<email2.length;j++)
+					{
+						if(email2.charAt(j)=='@')
+						{
+							alert("Email address may not have the '.'(dot) character before the '@'(at) character");
+							form1.txtEmail.select();
+							form1.txtEmail.focus();
+							return false;
+						}
+					}
+				}
+			}
+			
+			//validasi email tidak boleh mengandung lebih dari satu karakter @
+			for(i=0;i<email2.length;i++)
+			{
+				if(email2.charAt(i)=='@')
+				{
+					i2=i+1;
+					for(j=i2;j<email2.length;j++)
+					{
+						if(email2.charAt(j)=='@')
+						{
+							alert("Email address may not have more than one '@'(at) character");
+							form1.txtEmail.select();
+							form1.txtEmail.focus();
+							return false;
+						}
+					}
+				}
+			}
+			
+			
+		}
+		return true;
+	}
+	function cekName()
+	{
+		name2=form1.txtName.value;
+		//validasi name kosong
+		if (form1.txtName.value == "")
+		{
+			alert("Name must be filled!!");
+			form1.txtName.select();
+			form1.txtName.focus();
+			return false;
+		}
+		//validasi name tidak boleh mengandung angka
+		else
+		{
+			for(i=0;i<name2.length;i++)
+			{
+				if(isNaN(name2.charAt(i))==false)
+				{
+					alert("Name may not be filled with number!!");
+					form1.txtName.select();
+					form1.txtName.focus();					
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	function cekAddress()
+	{
+		address2=form1.txtAddress.value;
+		//validasi address kosong
+		if(address2=="")
+		{
+			alert("Address must be filled!!");
+			form1.txtAddress.select();
+			form1.txtAddress.focus();
+			return false;
+		}
+		//validasi panjang address minimal 10
+		else if(address2.length<10)
+		{
+			alert("Address must be at least 10 character long!!");
+			form1.txtAddress.select();
+			form1.txtAddress.focus();
+			return false;
+		}
+		return true;
+	}
+	function cekContactNumber()
+	{
+		ContactNumber2=form1.txtContactNumber.value;
+		//validasi contact number tidak boleh kosong
+		if(ContactNumber2=="")
+		{
+			alert("Contact Number must be filled!!");
+			form1.txtContactNumber.select();
+			form1.txtContactNumber.focus();
+			return false;
+		}
+		//validasi contact number hanya boleh mengandung angka
+		else if(isNaN(ContactNumber2)==true)
+		{
+			alert("Contact number should consists of numbers only");
+			form1.txtContactNumber.select();
+			form1.txtContactNumber.focus();
+			return false;
+		}
+		return true;
+	}
+	function generatePonsel() //fungsi untuk mengenerate total ponsel dan grand total
+	{
+		var n3110=1250000;
+		var n6500=3100000;
+		var n8800=8300000;
+		var E90=9000000;
+		var n95=6000000;
+		var n81=4000000;
+		if(form1.cmbTypePonsel.value=="Nokia 3110")
+		{
+			document.form1.txtPricePonsel.value=n3110;
+		}
+		else if(form1.cmbTypePonsel.value=="Nokia 6500")
+		{
+			document.form1.txtPricePonsel.value=n6500;
+		}
+		else if(form1.cmbTypePonsel.value=="Nokia 8800")
+		{
+			document.form1.txtPricePonsel.value=n8800;
+		}
+		else if(form1.cmbTypePonsel.value=="Nokia E90")
+		{
+			document.form1.txtPricePonsel.value=E90;
+		}
+		else if(form1.cmbTypePonsel.value=="Nokia N95")
+		{
+			document.form1.txtPricePonsel.value=n95;
+		}
+		else if(form1.cmbTypePonsel.value=="Nokia N81")
+		{
+			document.form1.txtPricePonsel.value=n81;
+		}
+	}
+	function generateTotalPonsel() //fungsi untuk mengenerate total accessory dan grand total
+	{
+		qty=form1.txtQtyPonsel.value;
+		test=form1.txtPricePonsel.value;
+		total=0;
+		acce=form1.txtTotalPurchaseAccessory.value;
+		//alert(harga);
+		//total=parseInt(hargadulu)+parseInt(harga);
+		if(isNaN(qty)!=true)
+		{
+			harga=test*qty;
+			
+			document.form1.txtTotalPonsel.value=harga;
+			total=total+parseInt(harga);
+			document.form1.txtTotalPurchasePonsel.value=total;
+			document.form1.txtTotalAll.value=parseInt(total)+parseInt(acce);
+			total2=parseInt(total)+parseInt(acce);
+			discount=10/100*total2;
+			document.form1.txtAmountDiscount.value=discount;
+			document.form1.txtTotalPayment.value=total2-discount;			
+		}
+		else
+		{
+			document.form1.txtTotalPonsel.value=0;
+			document.form1.txtTotalPurchasePonsel.value=0;
+			document.form1.txtTotalAll.value=parseInt(total)+parseInt(acce);
+			total2=parseInt(total)+parseInt(acce);
+			discount=10/100*total2;
+			document.form1.txtAmountDiscount.value=discount;
+			document.form1.txtTotalPayment.value=total2-discount;
+		}
+	}
+	function generateAccessory() //fungsi untuk mengenerate total accessory dan grand total
+	{
+		noreve=450000;
+        headset=830000;
+        bluetooth=2550000;
+        battery=225000;
+		if(form1.cmbTypeAccessory.value=="Noreve Leather Case")
+		{
+			document.form1.txtPriceAccessory.value=noreve;
+		}
+		else if(form1.cmbTypeAccessory.value=="Headset SENNHEISER HD515 Audiophile")
+		{
+			document.form1.txtPriceAccessory.value=headset;
+		}
+		else if(form1.cmbTypeAccessory.value=="Bluetooth Watch MBW-100")
+		{
+			document.form1.txtPriceAccessory.value=bluetooth;
+		}
+		else if(form1.cmbTypeAccessory.value=="Battery Polymer for Nokia")
+		{
+			document.form1.txtPriceAccessory.value=battery;
+		}
+	}
+	function generateTotalAccessory() //fungsi untuk mengenerate total accessory dan grand total
+	{
+		qty=form1.txtQtyAccessory.value;
+		test=form1.txtPriceAccessory.value;
+		total=0;
+		//alert(harga);
+		//total=parseInt(hargadulu)+parseInt(harga);
+		if(isNaN(qty)!=true)
+		{
+			harga=test*qty;
+			
+			document.form1.txtTotalAccessory.value=harga;
+			total=total+parseInt(harga);
+			document.form1.txtTotalPurchaseAccessory.value=total;
+			harga2=parseInt(form1.txtTotalPurchasePonsel.value)+parseInt(form1.txtTotalPurchaseAccessory.value);
+			document.form1.txtTotalAll.value=harga2;			
+			discount=10/100*harga2
+			document.form1.txtAmountDiscount.value=discount;
+			document.form1.txtTotalPayment.value=harga2-discount;
+		}
+		else
+		{
+			document.form1.txtTotalAccessory.value=0;
+			document.form1.txtTotalPurchaseAccessory.value=0;
+			document.form1.txtTotalAll.value=parseInt(form1.txtTotalPurchasePonsel.value)+parseInt(form1.txtTotalPurchaseAccessory.value);	
+			harga2=parseInt(form1.txtTotalPurchasePonsel.value)+parseInt(form1.txtTotalPurchaseAccessory.value);
+			discount=10/100*harga2
+			document.form1.txtAmountDiscount.value=discount;	
+						document.form1.txtTotalPayment.value=harga2-discount;	
+		}
+	}
+</script>
+<link href="styleCss.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style4 {font-size: 12px}
+-->
+</style>
+</head>
+
+<body background="Image/background.jpg">
+	<table align="center" width="800">
+    	<tr>
+        	<td align="center" colspan="6" width="800">
+            	<img src="Image/header.jpg" />
+            </td>
+        </tr>
+        <tr>
+        	<td colspan="2">
+           	  <table align="center">
+                	<Tr>
+                   	  <td><ul id="MenuBar1" class="MenuBarHorizontal">
+                   	    <li><a href="index.html">Home</a></li>
+                   	    <li><a href="products.html" class="MenuBarItemSubmenu">Products</a>
+                            <ul>
+                              <li><a href="phone.html">Phone</a></li>
+                              <li><a href="accessory.html">Accessory</a></li>
+                          </ul>
+               	        </li>
+                   	    <li><a href="purchase.html">Purchase</a></li>
+                   	    <li><a href="aboutUs.html">About US</a></li>
+                   	    <li><a href="contactUs.html">Contact US</a></li>
+                   	    <li><a href="feedback.html">Feedback</a></li>
+                   	  </ul>
+                   	  </td>
+                    </Tr>
+              </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" width="800" valign="top">
+            	<form name="form1" action="" method="post">
+     			<table width="707" border="1" align="center" cellpadding="5" cellspacing="5">
+<tr>
+                		<td colspan="2" align="center" class="styleCss">
+                    		Purchsase	                    </td>
+   				  </tr>
+                    <tr>
+                    	<td colspan="2" align="left">
+                        	<b>I. Customer Details</b>                        </td>
+                    </tr>
+                    <tr>
+                    	<td width="193">Name</td>
+                      <td width="473"><input type="text" name="txtName"  /><div id="divName"></div></td>
+                    </tr>            	
+                    <tr>
+                    	<td valign="top">Address</td>
+                        <td><textarea name="txtAddress" rows="5"></textarea></td>
+                    </tr>
+                    <tr>
+                    	<td>Contact Number</td>
+                        <td><input type="text" name="txtContactNumber" /></td>
+                    </tr>
+                    <tr>
+                    	<td>Email Address</td>
+                        <td><input type="text" name="txtEmail" /></td>
+                    </tr>
+                    <tr>
+                    	<td>Card Type</td>
+                        <td>
+                        	<select name="cmbCardType">
+                           	  <option value="--Select One--">--Select One--</option>
+                        		<option value="MasterCard">Master Card</option>
+                                <option value="VISA">VISA</option>
+	                        </select>                        </td>
+                    </tr>
+                    <tr>
+                    	<td>Card Number</td>
+                        <td><input type="text" name="txtCardNumber" /></td>
+                    </tr>
+                    <tr>
+                    	<td>Card Holder Name</td>
+                        <td><input type="text" name="txtCardHolderName" /></td>
+                    </tr>
+                    <tr>
+                    	<td>Expiration Date</td>
+                        <td>
+                        	<select name="cmbMonthExpirationDate">
+                            	<option value="--Month--">--Month--</option>
+                            	<option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
+                            </select>
+                            &nbsp;&nbsp;
+                            <select name="cmbYearExpirationDate">
+                            	<option value="--Year--">--Year--</option>
+                           	  <script language="javascript">
+									for(i=1990;i<2009;i++)
+									{
+										document.write("<option value=" + i +">" + i + "</option>")
+									}
+								</script>
+                            </select>                        </td>
+                    </tr>
+                    <tr>
+                    	<td colspan="2"><b>II. Phone</b></td>
+                    </tr>
+                    <tr>
+                    	<td>Type</td>
+                      <td>
+                        	<select name="cmbTypePonsel" onchange="generatePonsel()">
+                            	<option value="--Select One--">--Select One--</option>
+                                <option value="Nokia 3110">Nokia 3110</option>
+                                <option value="Nokia 6500">Nokia 6500</option>
+                                <option value="Nokia 8800">Nokia 8800</option>
+                                <option value="Nokia E90">Nokia E90</option>
+                                <option value="Nokia N95">Nokia N95</option>
+                                <option value="Nokia N81">Nokia N81</option>
+                            </select>                      </td>
+                    </tr>
+                    <tr>
+                    	<td height="35">Price</td>
+                        <td><input type="text" name="txtPricePonsel" disabled="disabled" value="0" /></td>
+                    </tr>
+                    <tr>
+                    	<td>Qty</td>
+                        <td><input type="text" name="txtQtyPonsel" onchange="generateTotalPonsel()" /> <label></label></td>
+                    </tr>
+                    <tr>
+                    	<td>Total</td>
+                        <td><input type="text" name="txtTotalPonsel" disabled="disabled" value="0" /></td>
+                    </tr>
+                    <tr>
+                    	<td>Total Purchase for Handphone</td>
+                        <td><input type="text" name="txtTotalPurchasePonsel" disabled="disabled" value="0" /></td>
+                    </tr>
+                    <tr>
+                    	<td colspan="2"><b>III. Accessories</b></td>
+                    </tr>
+                    <tr>
+                    	<td>Type</td>
+                        <td>
+                        	<select name="cmbTypeAccessory" onchange="generateAccessory()">
+                            	<option value="--Select One--">--Select One--</option>
+                                <option value="Noreve Leather Case">Noreve Leather Case</option>
+                                <option value="Headset SENNHEISER HD515 Audiophile">SENNHEISER HD515 Audiophile</option>
+                                <option value="Bluetooth Watch MBW-100">Bluetooth Watch MBW-100</option>
+                                <option value="Battery Polymer for Nokia">Battery Polymer for Nokia</option>
+                        	</select>                        </td>
+                    </tr>
+                    <tr>
+                    	<td>Price</td>
+                        <td><input type="text" name="txtPriceAccessory" disabled="disabled" value="0" /></td>
+                    </tr>
+                    <tr>
+                    	<td>Qty</td>
+                        <td><input type="text" name="txtQtyAccessory" onchange="generateTotalAccessory()" /> <label></label></td>
+                    </tr>
+                    <tr>
+                    	<td>Total</td>
+                        <td><input type="text" name="txtTotalAccessory" disabled="disabled" value="0" /></td>
+                    </tr>
+                    <tr>
+                    	<td>Total Purchase for Accessory</td>
+                        <td><input type="text" name="txtTotalPurchaseAccessory" disabled="disabled" value="0" /></td>
+                    </tr>
+                    <tr>
+                    	<td colspan="2"><b>IV. Total Fee</b></td>
+                    </tr>
+                    <tr>
+                    	<td>Total All</td>
+                        <td><input type="text" name="txtTotalAll" disabled="disabled" /></td>
+                    </tr>
+					<tr>
+                    	<td>Discount</td>
+                        <td><input type="text" name="txtDiscount" disabled="disabled" value="10%" /></td>
+                    </tr>
+                    <tr>
+                    	<td>Amount Discount</td>
+                        <td><input type="text" name="txtAmountDiscount" disabled="disabled" /></td>
+                    </tr>
+                    <tr>
+                    	<td>Total Payment</td>
+                        <td><input type="text"  name="txtTotalPayment" disabled="disabled" /></td>
+                    </tr>
+                    <tr>
+                    	<td colspan="2" align="center"><input type="button" onclick="cek()" value="Submit" />                    	  &nbsp;&nbsp;
+                            <input type="reset" value="Reset" />                      </td>
+                    </tr>
+                </table>                           
+              </form>
+          </td>
+      </tr>
+      <tr>
+      	<td colspan="2" align="center">
+       	<span class="style4">Copyright By Kelompok 2 @ 05PET        </span></td>
+      </tr>
+    </table>
+    <script type="text/javascript">
+<!--
+var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenuBarDownHover.gif", imgRight:"SpryAssets/SpryMenuBarRightHover.gif"});
+//-->
+    </script>
+</body>
+</html>
